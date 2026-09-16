@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>12 Hour Timer</title>
+    <!-- Browser tab title -->
+    <title>Charlie</title>
+
+    <!-- Browser tab icon -->
+    <link rel="icon" type="image/png" href="image.png">
 
     <style>
         * {
@@ -15,7 +19,7 @@
             margin: 0;
             min-height: 100vh;
 
-            /* White matching the background of your image */
+            /* White background */
             background-color: #ffffff;
 
             font-family: Arial, sans-serif;
@@ -29,11 +33,11 @@
         .container {
             text-align: center;
 
-            /* Moves everything slightly downward */
+            /* Moves everything slightly down */
             transform: translateY(60px);
         }
 
-        /* Image above the button */
+        /* Steak image */
         .image {
             width: 300px;
             max-width: 80vw;
@@ -41,51 +45,16 @@
             margin: 0 auto 35px auto;
         }
 
-        /* Rectangle button */
-        button {
-            width: 280px;
-            height: 80px;
-
-            border: none;
-            border-radius: 10px;
-
-            background-color: #d62828;
-            color: white;
-
-            font-size: 26px;
-            font-weight: bold;
-
-            cursor: pointer;
-
-            transition: transform 0.2s, background-color 0.2s;
-        }
-
-        button:hover {
-            background-color: #b91f1f;
-            transform: scale(1.03);
-        }
-
-        button:disabled {
-            cursor: default;
-        }
-
         /* Timer */
         #timer {
-            margin-top: 30px;
-
             font-size: 48px;
             font-weight: bold;
-
-            display: none;
         }
 
         /* Finished message */
         #message {
-            margin-top: 30px;
-
-            font-size: 32px;
+            font-size: 40px;
             font-weight: bold;
-
             display: none;
         }
     </style>
@@ -95,106 +64,101 @@
 
     <div class="container">
 
-        <!-- YOUR IMAGE -->
+        <!-- Steak image -->
         <img
             class="image"
             src="image.png"
-            alt="Timer image"
+            alt="Steak"
         >
 
-        <!-- START BUTTON -->
-        <button id="startButton" onclick="startTimer()">
-            START
-        </button>
-
-        <!-- TIMER -->
+        <!-- Countdown -->
         <div id="timer">
             12:00:00
         </div>
 
-        <!-- FINISHED MESSAGE -->
-       <div id="message">
-    Behind The Bench.
-</div>
+        <!-- Message after countdown -->
+        <div id="message">
+            Behind The Bench.
+        </div>
 
     </div>
 
 
     <script>
-        let countdown;
 
+        // 12 hours in milliseconds
         const twelveHours = 12 * 60 * 60 * 1000;
 
-        function startTimer() {
+        const timerDisplay =
+            document.getElementById("timer");
 
-            const startButton =
-                document.getElementById("startButton");
-
-            const timerDisplay =
-                document.getElementById("timer");
-
-            const message =
-                document.getElementById("message");
+        const message =
+            document.getElementById("message");
 
 
-            startButton.disabled = true;
-            startButton.style.display = "none";
-
-            timerDisplay.style.display = "block";
-            message.style.display = "none";
+        // Start the timer immediately when the website opens
+        const endTime = Date.now() + twelveHours;
 
 
-            const endTime = Date.now() + twelveHours;
+        function updateTimer() {
+
+            const remaining =
+                endTime - Date.now();
 
 
-            countdown = setInterval(function() {
+            // Timer finished
+            if (remaining <= 0) {
 
-                const remaining =
-                    endTime - Date.now();
+                clearInterval(countdown);
 
+                timerDisplay.style.display = "none";
 
-                if (remaining <= 0) {
+                message.style.display = "block";
 
-                    clearInterval(countdown);
-
-                    timerDisplay.style.display = "none";
-
-                    message.style.display = "block";
-
-                    return;
-                }
+                return;
+            }
 
 
-                const hours =
-                    Math.floor(
-                        remaining /
-                        (1000 * 60 * 60)
-                    );
+            // Calculate remaining time
+            const hours =
+                Math.floor(
+                    remaining /
+                    (1000 * 60 * 60)
+                );
 
 
-                const minutes =
-                    Math.floor(
-                        (remaining %
-                        (1000 * 60 * 60)) /
-                        (1000 * 60)
-                    );
+            const minutes =
+                Math.floor(
+                    (remaining %
+                    (1000 * 60 * 60)) /
+                    (1000 * 60)
+                );
 
 
-                const seconds =
-                    Math.floor(
-                        (remaining %
-                        (1000 * 60)) /
-                        1000
-                    );
+            const seconds =
+                Math.floor(
+                    (remaining %
+                    (1000 * 60)) /
+                    1000
+                );
 
 
-                timerDisplay.textContent =
-                    String(hours).padStart(2, "0") + ":" +
-                    String(minutes).padStart(2, "0") + ":" +
-                    String(seconds).padStart(2, "0");
-
-            }, 1000);
+            // Display timer
+            timerDisplay.textContent =
+                String(hours).padStart(2, "0") + ":" +
+                String(minutes).padStart(2, "0") + ":" +
+                String(seconds).padStart(2, "0");
         }
+
+
+        // Update immediately
+        updateTimer();
+
+
+        // Update every second
+        const countdown =
+            setInterval(updateTimer, 1000);
+
     </script>
 
 </body>
