@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Browser tab title -->
     <title>Charlie</title>
 
-    <!-- Browser tab icon -->
-   <link rel="icon" type="image/jpeg" href="charlie.jpg">
+    <link rel="icon" type="image/jpeg" href="charlie.jpg">
 
     <style>
         * {
@@ -18,10 +16,7 @@
         body {
             margin: 0;
             min-height: 100vh;
-
-            /* White background */
             background-color: #ffffff;
-
             font-family: Arial, sans-serif;
             color: #222;
 
@@ -32,12 +27,9 @@
 
         .container {
             text-align: center;
-
-            /* Moves everything slightly down */
             transform: translateY(60px);
         }
 
-        /* Steak image */
         .image {
             width: 300px;
             max-width: 80vw;
@@ -45,13 +37,11 @@
             margin: 0 auto 35px auto;
         }
 
-        /* Timer */
         #timer {
             font-size: 48px;
             font-weight: bold;
         }
 
-        /* Finished message */
         #message {
             font-size: 40px;
             font-weight: bold;
@@ -64,30 +54,26 @@
 
     <div class="container">
 
-        <!-- Steak image -->
-      <img
-    class="image"
-    src="charlie.jpg"
-    alt="Steak"
->
+        <img
+            class="image"
+            src="charlie.jpg"
+            alt="Steak"
+        >
 
-        <!-- Countdown -->
         <div id="timer">
-            1:00:00
+            01:00:00
         </div>
 
-        <!-- Message after countdown -->
         <div id="message">
             Behind The Bench.
         </div>
 
     </div>
 
-
     <script>
 
-        // 12 hours in milliseconds
-        const twelveHours = 12 * 60 * 60 * 1000;
+        // 1 hour in milliseconds
+        const oneHour = 1 * 60 * 60 * 1000;
 
         const timerDisplay =
             document.getElementById("timer");
@@ -97,7 +83,7 @@
 
 
         // Start the timer immediately when the website opens
-        const endTime = Date.now() + twelveHours;
+        const endTime = Date.now() + oneHour;
 
 
         function updateTimer() {
